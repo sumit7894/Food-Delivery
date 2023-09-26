@@ -1,5 +1,4 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
 import {useState,useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Body =()=>{
 
-const [listOfRestaurant, setListOfRestaurant] = useState([]);
+let [listOfRestaurant, setListOfRestaurant] = useState([]);
 const [filteredRestaurant,setFilteredRestaurant] = useState([]);
 const [searchText,setSearchText] = useState("");
   useEffect(()=>{
@@ -21,13 +20,13 @@ const [searchText,setSearchText] = useState("");
       const json = await data.json();
       console.log(json);
       //Optional chainging
-      setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
+      setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
   };
-
+  
   console.log("body re-rendered");
   //Conditional Rendering(Rendering based on the condition)
-    return listOfRestaurant.length === 0? <Shimmer/> : (
+    return listOfRestaurant.length === 0 ? <Shimmer/> :  (
        <div className="body">
         <div className="filter">
         <div className="search">
