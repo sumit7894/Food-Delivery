@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withPromotedLabel} from "./RestaurantCard";
 import {useState,useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ const Body =()=>{
 let [listOfRestaurant, setListOfRestaurant] = useState([]);
 const [filteredRestaurant,setFilteredRestaurant] = useState([]);
 const [searchText,setSearchText] = useState("");
+const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
   useEffect(()=>{
     fetchData();
   },[]);
@@ -63,9 +65,16 @@ const [searchText,setSearchText] = useState("");
         <div className="card-container flex flex-wrap">
             {
                 filteredRestaurant.map((restaurant)=>( 
-                    <Link to={"restaurants/"+restaurant.info.id} key={restaurant.info.id}><RestaurantCard resData={restaurant}/> </Link>
+                    <Link to={"restaurants/"+restaurant.info.id} key={restaurant.info.id}>
+                      {/* IN THE LATEST API SWIGGY HAS NO PROMOTED DATA SO REPLACE IT WITH ISOPEN FEATURE */}
+                      {restaurant.info.isOpen ? (
+                        <RestaurantCardPromoted resData={restaurant}/>):
+                        (<RestaurantCard resData={restaurant}/> 
+                      )}
+                      </Link>
                 ))
             }
+            {console.log("list",filteredRestaurant)};
         </div>
        </div> 
     )

@@ -19,6 +19,22 @@ const RestaurantCard =(props)=>{
             <h4>{sla.deliveryTime} minutes</h4>
         </div>
     )
-}
+};
+
+    //Higher order component 
+
+    //input - Restaurant Card --> RestaurantCardPromoted
+export const withPromotedLabel =(RestaurantCard)=>{
+    return (props)=>{
+        return(
+            <div>
+                <label className="absolute bg-black text-green-600 m-2 p-2 rounded-lg">
+                Open
+                </label>
+                <RestaurantCard {...props}/>
+            </div>
+        );
+    };
+};
 
 export default RestaurantCard;
