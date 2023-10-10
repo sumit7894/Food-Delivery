@@ -20,7 +20,6 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=25.3458062&lng=82.9884584&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
       const json = await data.json();
-      console.log(json);
       //Optional chainging
       setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
       setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
@@ -74,7 +73,6 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
                       </Link>
                 ))
             }
-            {console.log("list",filteredRestaurant)};
         </div>
        </div> 
     )
