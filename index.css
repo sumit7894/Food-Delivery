@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
 .header{
     display: flex;
     justify-content: space-between;
@@ -64,4 +69,4 @@
 .user-card{
     border: 1px solid black;
     padding: 5px;
-}
+} */

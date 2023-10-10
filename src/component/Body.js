@@ -3,6 +3,7 @@ import {useState,useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { list } from "postcss";
 const Body =()=>{
 
 let [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -19,8 +20,8 @@ const [searchText,setSearchText] = useState("");
       const json = await data.json();
       console.log(json);
       //Optional chainging
-      setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
+      setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
   };
 
       const onlineStatus = useOnlineStatus();
@@ -32,34 +33,34 @@ const [searchText,setSearchText] = useState("");
           </h1>
         )
       };
-    return listOfRestaurant.length === 0 ? <Shimmer/> :  (
+      
+    return listOfRestaurant.length === 0 ? (<Shimmer/>) :  (
        <div className="body">
-        <div className="filter">
-        <div className="search">
-          <input type="text" className="search-box"
+        <div className="filter flex items-center">
+        <div className="search m-4 p-4">
+          <input type="text" className="border border-solid border-black"
           value={searchText}
           onChange={(e)=>{
             setSearchText(e.target.value);
           }}
           />
-          <button
+          <button className="search px-4 py-2 m-4 bg-green-400 rounded-xl"
           onClick={()=>{
-            console.log(searchText);
-
             const filteredRestaurant = listOfRestaurant.filter((res)=>
               res.info.name.toLowerCase().includes(searchText.toLocaleLowerCase()));
-            setFilteredRestaurant(filteredRestaurant);
-            console.log(filteredRestaurant);
+              setFilteredRestaurant(filteredRestaurant);
           }}
           >Search </button> 
         </div>
-          <button className="filter-btn" 
+          <div>
+          <button className="search px-4 py-2 bg-gray-100 flex items-center"
           onClick={()=>{
             const filteredList = listOfRestaurant.filter((res)=> res.info.avgRating > 4)
             setListOfRestaurant(filteredList);
           }}> Top Rated Restaurant</button>
           </div>
-        <div className="res-container">
+          </div>
+        <div className="card-container flex flex-wrap">
             {
                 filteredRestaurant.map((restaurant)=>( 
                     <Link to={"restaurants/"+restaurant.info.id} key={restaurant.info.id}><RestaurantCard resData={restaurant}/> </Link>
