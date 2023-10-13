@@ -9,6 +9,10 @@ import Error from "./component/Error";
 import RestaurantMenu from "./component/RestaurantMenu";
 import UserContext from "./utils/UserContext";
 
+import {Provider} from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./component/Cart";
+
 
 
 //chunking
@@ -28,13 +32,15 @@ useEffect(()=>{
     setUserName(data.name);
 },[])
     return(
-        //In context provider i'm passing setUserName so that i can update the user name from the input box which in the body component
+        <Provider store={appStore}>
+        {/* //In context provider i'm passing setUserName so that i can update the user name from the input box which in the body component */}
         <UserContext.Provider value={{loggedInUser : userName,setUserName}}>    
             <div className="app">
             <Header/>
             <Outlet/>
         </div>
         </UserContext.Provider>
+        </Provider>
         
     )
 }
@@ -65,6 +71,10 @@ useEffect(()=>{
             {
                 path:"/grocery",
                 element:<Suspense fallback={<h1>loading .... </h1>}><Grocery/> </Suspense>,
+            },
+            {
+                path:"/cart",
+                element:<Cart/>,
             },
         ],
         errorElement:<Error/>,

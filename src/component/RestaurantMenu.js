@@ -30,7 +30,7 @@ const RestaurantMenu = ()=>{
                 {/* categories accordian FOR EACH CATEGORY WE WILL BUILT AN ACCORDIAN */}
                 {categories.map(
                     (category,index)=>
-                    (<RestaurantCategory key={category?.card.card.title} data={category?.card?.card}
+                    (<RestaurantCategory key={category?.card?.card?.title} data={category?.card?.card}
                     showItems={index === showIndex ? true : false}
                     setShowIndex={()=>setShowIndex(index)}
                     />)

@@ -25,7 +25,6 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
       setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
       setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
   };
-      console.log("list",listOfRestaurant.length);
       const onlineStatus = useOnlineStatus();
 
       if(onlineStatus ===false){
