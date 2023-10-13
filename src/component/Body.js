@@ -1,9 +1,10 @@
 import RestaurantCard,{withPromotedLabel} from "./RestaurantCard";
-import {useState,useEffect} from "react";
+import {useState,useEffect,useContext} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { list } from "postcss";
+import UserContext from "../utils/UserContext";
 const Body =()=>{
 
 let [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -24,7 +25,7 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
       setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
       setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants) || {};
   };
-
+      console.log("list",listOfRestaurant.length);
       const onlineStatus = useOnlineStatus();
 
       if(onlineStatus ===false){
@@ -34,7 +35,7 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
           </h1>
         )
       };
-      
+      const {loggedInUser,setUserName} = useContext(UserContext);
     return listOfRestaurant.length === 0 ? (<Shimmer/>) :  (
        <div className="body">
         <div className="filter flex items-center">
@@ -59,6 +60,13 @@ const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
             const filteredList = listOfRestaurant.filter((res)=> res.info.avgRating > 4)
             setListOfRestaurant(filteredList);
           }}> Top Rated Restaurant</button>
+          </div>
+          <div className="mx-4">
+          <label>User Name : </label>
+          <input type="text" className="p-2 border border-black"
+          value={loggedInUser}
+          onChange={(e)=>{setUserName(e.target.value)}}
+          />
           </div>
           </div>
         <div className="card-container flex flex-wrap">

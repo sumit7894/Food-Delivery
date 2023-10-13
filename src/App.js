@@ -1,4 +1,4 @@
- import React, { Suspense, lazy } from "react";
+ import React, { Suspense, lazy, useContext,useState,useEffect } from "react";
  import ReactDOM from "react-dom/client";
  import Header from "./component/Header";
  import Body from "./component/Body";
@@ -7,6 +7,8 @@ import About from "./component/About";
 import Contact from "./component/Contact";
 import Error from "./component/Error";
 import RestaurantMenu from "./component/RestaurantMenu";
+import UserContext from "./utils/UserContext";
+
 
 
 //chunking
@@ -17,11 +19,23 @@ import RestaurantMenu from "./component/RestaurantMenu";
 const Grocery = lazy(()=>import("./component/Grocery"));
 
 const AppLayout=()=>{
+    const [userName,setUserName] = useState();
+
+useEffect(()=>{
+    const data ={
+        name : "sumit",
+    };
+    setUserName(data.name);
+},[])
     return(
-        <div className="app">
+        //In context provider i'm passing setUserName so that i can update the user name from the input box which in the body component
+        <UserContext.Provider value={{loggedInUser : userName,setUserName}}>    
+            <div className="app">
             <Header/>
             <Outlet/>
         </div>
+        </UserContext.Provider>
+        
     )
 }
  const heading = React.createElement("h1",{id:"heading"},"Namaste React 🦗");
