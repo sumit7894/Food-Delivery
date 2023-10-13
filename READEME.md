@@ -24,3 +24,4 @@
 - Slice (cartSlice)
 - dispatch(action)
 - Selector
+- Download Redux Dev Tool extension(very good debugging tool-it shows the log of actions and many more features)

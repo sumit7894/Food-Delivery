@@ -16,7 +16,10 @@ const cartSlice = createSlice({
             state.items.pop();
         },
         clearCart:(state)=>{
+            // state = [""]; We can't do this because it is just changing the reference not mutating the object. It will have a value of initail state
+            // RTK - says either mutate the existing state or return a new state
             state.items.length=0;
+            // return {items:[]} now this will replace the inside of original state = []
         }
     }
 });
